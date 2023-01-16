@@ -1,0 +1,11 @@
+apply plugin: 'java-library'
+
+dependencies {
+    implementation project(':usecases')
+    implementation project(':entities')
+    implementation project(':in-memory-hazelcast')
+    implementation project(path: ':sha256')
+    implementation project(path: ':uuid')
+    implementation project(path: ':SimpleValidator')
+    implementation project(path: ':in-memory-database')
+}

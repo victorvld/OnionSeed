@@ -1,0 +1,6 @@
+dependencies {
+    implementation(
+            project(':usecases'),
+            'commons-codec:commons-codec:1.11'
+    )
+}
