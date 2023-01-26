@@ -8,7 +8,6 @@ import org.junit.jupiter.api.Test;
 class InMemoryUserRepositoryTest {
 
     private InMemoryUserRepository inMemoryDb;
-
     @BeforeEach
     public void beforeAll() {
         inMemoryDb = new InMemoryUserRepository();
@@ -51,6 +50,23 @@ class InMemoryUserRepositoryTest {
         String email = "exampleNonExisting@email.io";
 
         Assertions.assertFalse(inMemoryDb.findByEmail(email).isPresent());
+    }
+
+    @Test
+    void whenUserIsLoggedThenFindSessionTokenByEmailReturnsPresent() {
+        String email = "loggedUser@email.io";
+        String token = "session01";
+
+        inMemoryDb.createUserSession(email, token);
+
+        Assertions.assertTrue(inMemoryDb.findSessionTokenByEmail(email).isPresent());
+    }
+
+    @Test
+    void whenUserIsNotLoggedThenFindSessionTokenByEmailReturnsNotPresent() {
+        String email = "NotLoggedUser@email.io";
+
+        Assertions.assertFalse(inMemoryDb.findSessionTokenByEmail(email).isPresent());
     }
 
 }
