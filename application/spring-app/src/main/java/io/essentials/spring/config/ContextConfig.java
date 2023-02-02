@@ -12,14 +12,16 @@ public class ContextConfig {
     @Bean
     @ConditionalOnProperty(name="environment", havingValue = "test")
     public Context testContext() {
-        AppConfig.setupUserContext();
+        System.out.println("Test");
+        AppConfig.setupTestUserContext();
         return new Context();
     }
 
     @Bean
     @ConditionalOnProperty(name="environment", havingValue = "dev", matchIfMissing = true)
     public Context devContext() {
-        AppConfig.setupTestUserContext();
+        System.out.println("Dev");
+        AppConfig.setupUserContext();
         return new Context();
     }
 }

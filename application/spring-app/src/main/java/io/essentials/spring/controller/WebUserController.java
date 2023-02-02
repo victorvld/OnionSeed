@@ -32,13 +32,10 @@ public class WebUserController {
 
     @PostMapping(value = "/home", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     String login(LoginForm form, HttpServletResponse response) {
-        // @RequestParam Map<String, String> map
-        //String username = map.get("email");
-        //String password = map.get("password");
         //Todo : create an interface for the responses instead of using a string.
         String result = controller.login(form.username(), form.password());
         if (result != null) {
-            response.addCookie(new Cookie(form.username(), result));
+            response.addCookie(new Cookie("sessionToken", result));
             return "home.html";
         } else {
             return "index.html";

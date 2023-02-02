@@ -32,7 +32,12 @@ public class InMemoryUserRepository implements UserRepository {
 
     @Override
     public boolean checkPassword(String username, String password) {
-        return false;
+        var result = false;
+        var user = findByEmail(username);
+        if (user.isPresent()) {
+            result = user.get().getPassword().equals(password);
+        }
+        return result;
     }
 
     @Override
