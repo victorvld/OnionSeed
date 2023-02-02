@@ -32,8 +32,8 @@ public final class UserInteractor {
                 } else {
                     //  Login successfully
                     var sessionToken = Context.sessionIdGenerator.generate();
-                     var userSession = Context.repository.createUserSession(email, sessionToken);
-                     response = userSession.sessionToken();
+                    var userSession = Context.repository.createUserSession(email, sessionToken);
+                    response = userSession.sessionToken();
                 }
             } else {
                 // Failed login attempt, reason: Incorrect Password.
