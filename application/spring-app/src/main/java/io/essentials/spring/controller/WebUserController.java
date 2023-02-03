@@ -3,7 +3,9 @@ package io.essentials.spring.controller;
 import io.essentials.adapter.controller.UserController;
 import io.essentials.adapter.model.LoginForm;
 import io.essentials.adapter.model.WebUser;
+import io.essentials.spring.utils.CookiesUtils;
 import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -31,11 +33,13 @@ public class WebUserController {
     }
 
     @PostMapping(value = "/home", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    String login(LoginForm form, HttpServletResponse response) {
+    String login(LoginForm form, HttpServletResponse response, HttpServletRequest request) {
         //Todo : create an interface for the responses instead of using a string.
         String result = controller.login(form.username(), form.password());
         if (result != null) {
-            response.addCookie(new Cookie("sessionToken", result));
+            var domain = request.getServerName() + request.getServerPort();
+            Cookie sessionToken = CookiesUtils.createCookie("sessionToken", result, domain);
+            response.addCookie(sessionToken);
             return "home.html";
         } else {
             return "index.html";

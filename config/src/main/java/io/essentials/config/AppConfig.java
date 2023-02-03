@@ -23,12 +23,22 @@ public class AppConfig {
         Context.userValidator = new SimpleUserValidator();
 
         var user = User.builder()
+                .id("1")
                 .email("registeredUser@email.io")
                 .firstName("registered")
                 .lastName("user")
                 .password("password")
                 .build();
 
+        var user2 = User.builder()
+                .id("2")
+                .email("varranz.devs@outlook.com")
+                .firstName("Victor")
+                .lastName("Arranz")
+                .password("123")
+                .build();
+
         Context.repository.create(user);
+        Context.repository.create(user2);
     }
 }

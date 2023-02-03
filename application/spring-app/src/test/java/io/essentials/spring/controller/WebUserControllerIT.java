@@ -6,6 +6,7 @@ import io.essentials.adapter.model.WebUser;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -17,11 +18,10 @@ import org.springframework.http.*;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
-import java.io.IOException;
+import java.net.HttpCookie;
 import java.util.stream.Stream;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class WebUserControllerIT {
@@ -30,7 +30,7 @@ public class WebUserControllerIT {
     private TestRestTemplate template;
 
     @Test
-    public void homePageIT() throws IOException {
+    public void homePageIT() {
         var response = this.template.getForEntity("/", String.class);
 
         Document doc = Jsoup.parse(response.getBody());
@@ -83,10 +83,35 @@ public class WebUserControllerIT {
         var doc = Jsoup.parse(response.getBody());
         var actualPage = doc.title();
 
+        Assertions.assertEquals(expectedPage, actualPage);
+
+    }
+
+    // TODO: 2/3/23 Fix this tests
+    @Disabled("not yet ready , Please ignore.")
+    @Test
+    public void loginTestCookies() {
+        var headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+        MultiValueMap<String, String> body = new LinkedMultiValueMap<>();
+        body.add("username", "registeredUser@email.io");
+        body.add("password", "password");
+        var request = new HttpEntity<>(body, headers);
+
+        ResponseEntity<String> response = this.template.exchange("/home", HttpMethod.POST, request, String.class);
+
+        // TODO: 2/3/23 remove this ugly thing and do it in an utility class.
+        var sessionCookie = response.getHeaders().get("Set-Cookie").get(0);
+        var cookie = HttpCookie.parse(sessionCookie).get(0);
+
         Assertions.assertAll(
-                () -> assertEquals(expectedPage, actualPage)
+                () -> assertEquals(cookie.getName(), "sessionToken"),
+                () -> assertFalse(cookie.getValue().isBlank()),
+                () -> assertFalse(cookie.getDomain().isBlank()),
+                () -> assertEquals(cookie.getPath(), "/home"),
+                () -> assertEquals(cookie.getMaxAge(), 86400),
+                () -> assertTrue(cookie.getSecure())
         );
-        // read cookie and assert that.
     }
 
 }
