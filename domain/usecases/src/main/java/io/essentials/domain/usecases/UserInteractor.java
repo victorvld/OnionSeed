@@ -21,4 +21,26 @@ public final class UserInteractor {
 
         return Context.repository.create(userToSave);
     }
+
+    public String login(String email, String password) {
+        String response = null;
+        if (Context.repository.findByEmail(email).isPresent()) {
+            if (Context.repository.checkPassword(email, password)) {
+                // Correct Password
+                if (Context.repository.findSessionTokenByEmail(email).isPresent()) {
+                    // Failed login attempt, reason: User is already logged.
+                } else {
+                    //  Login successfully
+                    var sessionToken = Context.sessionIdGenerator.generate();
+                    var userSession = Context.repository.createUserSession(email, sessionToken);
+                    response = userSession.sessionToken();
+                }
+            } else {
+                // Failed login attempt, reason: Incorrect Password.
+            }
+        } else {
+            // Failed login attempt, reason: Unknown User.
+        }
+        return response;
+    }
 }

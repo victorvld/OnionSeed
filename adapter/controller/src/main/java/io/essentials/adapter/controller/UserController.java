@@ -12,8 +12,12 @@ public class UserController {
         this.userInteractor = userInteractor;
     }
 
-    public WebUser createUser(WebUser wUser) {
-        User user = userInteractor.create(wUser.toUser());
+    public WebUser createUser(WebUser webUser) {
+        User user = userInteractor.create(webUser.toUser());
         return WebUser.toUserWeb(user);
+    }
+
+    public String login(String username, String password) {
+        return userInteractor.login(username, password);
     }
 }

@@ -1,22 +1,26 @@
 package io.essentials.spring.controller;
 
 import io.essentials.adapter.controller.UserController;
+import io.essentials.adapter.model.LoginForm;
 import io.essentials.adapter.model.WebUser;
+import io.essentials.spring.utils.CookiesUtils;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.Map;
+import java.util.Optional;
 
 @Controller
 public class WebUserController {
-
-    private final UserController controller;
-
     @Autowired
-    public WebUserController(final UserController controller) {
-        this.controller = controller;
-    }
+    private UserController controller;
 
     @GetMapping(value = "/")
     public String index() {
@@ -26,14 +30,21 @@ public class WebUserController {
     // todo: 1/18/23 This should return an html since we are building a web application and not a rest api.
     @PostMapping("/users")
     @ResponseBody
-    WebUser newEmployee(@RequestBody WebUser newUser) {
+    WebUser createNewAccount(@RequestBody WebUser newUser) {
         return controller.createUser(newUser);
-
     }
 
-    @PostMapping("/home")
-    String logIn(@RequestParam Map<String, String> map) {
-        return "home.html";
+    @PostMapping(value = "/home", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    String login(LoginForm form, HttpServletResponse response, HttpServletRequest request) {
+        //Todo : create an interface for the responses instead of using a string.
+        String result = controller.login(form.username(), form.password());
+        if (result != null) {
+            var domain = String.format("%s", request.getServerName());
+            CookiesUtils.createCookie("sessionToken", result, domain).ifPresent(response::addCookie);
+            return "home.html";
+        } else {
+            return "index.html";
+        }
     }
 
 }

@@ -2,7 +2,6 @@ package io.essentials.domain.usecases;
 
 import io.essentials.domain.entities.User;
 import io.essentials.config.AppConfig;
-import io.essentials.domain.usecases.UserInteractor;
 import io.essentials.domain.usecases.exceptions.UserAlreadyExistsException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
@@ -66,7 +65,5 @@ class UserInteractorTest {
 
         assertEquals(user.getEmail(), exception.getMessage());
     }
-
-    // Create User that already exists
 
 }
