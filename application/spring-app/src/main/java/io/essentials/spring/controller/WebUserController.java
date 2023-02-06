@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.Optional;
+
 @Controller
 public class WebUserController {
     @Autowired
@@ -37,9 +39,8 @@ public class WebUserController {
         //Todo : create an interface for the responses instead of using a string.
         String result = controller.login(form.username(), form.password());
         if (result != null) {
-            var domain = request.getServerName() + request.getServerPort();
-            Cookie sessionToken = CookiesUtils.createCookie("sessionToken", result, domain);
-            response.addCookie(sessionToken);
+            var domain = String.format("%s", request.getServerName());
+            CookiesUtils.createCookie("sessionToken", result, domain).ifPresent(response::addCookie);
             return "home.html";
         } else {
             return "index.html";
