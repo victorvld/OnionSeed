@@ -17,7 +17,4 @@ public class UserController {
         return WebUser.toUserWeb(user);
     }
 
-    public String login(String username, String password) {
-        return userInteractor.login(username, password);
-    }
 }

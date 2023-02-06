@@ -1,9 +1,9 @@
 package io.essentials.adapter.controller;
 
-import io.essentials.adapter.model.LoginForm;
 import io.essentials.domain.usecases.interactor.InputBoundary;
 import io.essentials.domain.usecases.requester.Request;
 import io.essentials.domain.usecases.responder.Response;
+import io.essentials.usecases.login.request.LoginRequest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -32,7 +32,7 @@ class LoginControllerTest {
 
         String username = "my user";
         String password = "my password";
-        Request r = new LoginForm(username, password);
+        Request r = new LoginRequest(username, password);
 
         controller.handle(r);
 
@@ -46,12 +46,12 @@ class LoginControllerTest {
 class InputBoundarySpy implements InputBoundary {
 
     private boolean executeMethodWasCalled;
-    private LoginForm request;
+    private LoginRequest request;
 
     @Override
     public Response execute(Request request) {
         this.executeMethodWasCalled = true;
-        this.request = (LoginForm) request;
+        this.request = (LoginRequest) request;
         return null;
     }
 
@@ -60,7 +60,7 @@ class InputBoundarySpy implements InputBoundary {
         return this.executeMethodWasCalled;
     }
 
-    public LoginForm getRequest() {
+    public LoginRequest getRequest() {
         return request;
     }
 }

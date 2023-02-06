@@ -20,6 +20,7 @@ public class AppConfig {
         Context.repository = new InMemoryUserRepository();
         Context.passwordEncoder = new Sha256Encoder();
         Context.idGenerator = new UuidGenerator();
+        Context.sessionIdGenerator = new UuidGenerator();
         Context.userValidator = new SimpleUserValidator();
 
         var user = User.builder()

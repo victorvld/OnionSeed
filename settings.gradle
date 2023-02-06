@@ -11,6 +11,7 @@ include 'in-memory-hazelcast'
 include 'sha256'
 include 'uuid'
 include 'SimpleValidator'
+include 'usescases-implementation'
 
 project(":entities").projectDir = file("domain/entities")
 project(":usecases").projectDir = file("domain/usecases")
@@ -22,4 +23,5 @@ project(":in-memory-hazelcast").projectDir = file("adapter/repositories/in-memor
 project(":sha256").projectDir = file("adapter/encoder/sha256")
 project(":uuid").projectDir = file("adapter/id-generator/uuid")
 project(":SimpleValidator").projectDir = file("adapter/validators/SimpleValidator")
+project(":usescases-implementation").projectDir = file("domain/usescases-implementation")
 
