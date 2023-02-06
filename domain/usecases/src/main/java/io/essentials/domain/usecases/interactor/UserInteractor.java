@@ -1,4 +1,4 @@
-package io.essentials.domain.usecases;
+package io.essentials.domain.usecases.interactor;
 
 import io.essentials.domain.entities.User;
 import io.essentials.domain.usecases.context.Context;

@@ -3,6 +3,7 @@ package io.essentials.domain.usecases;
 import io.essentials.domain.entities.User;
 import io.essentials.config.AppConfig;
 import io.essentials.domain.usecases.exceptions.UserAlreadyExistsException;
+import io.essentials.domain.usecases.interactor.UserInteractor;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;

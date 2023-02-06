@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.essentials.adapter.controller.UserController;
 import io.essentials.config.AppConfig;
-import io.essentials.domain.usecases.UserInteractor;
+import io.essentials.domain.usecases.interactor.UserInteractor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

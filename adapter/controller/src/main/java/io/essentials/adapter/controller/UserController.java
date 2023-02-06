@@ -2,7 +2,7 @@ package io.essentials.adapter.controller;
 
 import io.essentials.adapter.model.WebUser;
 import io.essentials.domain.entities.User;
-import io.essentials.domain.usecases.UserInteractor;
+import io.essentials.domain.usecases.interactor.UserInteractor;
 
 public class UserController {
 
