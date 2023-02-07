@@ -54,9 +54,13 @@
         <div class="form signup">
             <span class="title">Registration</span>
 
-            <form action="/users" method="POST">
+            <form action="/signUp" method="post">
                 <div class="input-field">
-                    <input type="text" name="name" placeholder="Enter your name" required>
+                    <input type="text" name="firstName" placeholder="Enter your first name" required>
+                    <i class="uil uil-user"></i>
+                </div>
+                <div class="input-field">
+                    <input type="text" name="lastName" placeholder="Enter your last name" required>
                     <i class="uil uil-user"></i>
                 </div>
                 <div class="input-field">
@@ -81,7 +85,7 @@
                 </div>
 
                 <div class="input-field button">
-                    <input type="button" value="Signup">
+                    <input type="submit" value="Signup">
                 </div>
             </form>
 

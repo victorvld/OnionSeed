@@ -14,4 +14,5 @@ dependencies {
     implementation project(':controller')
     implementation project(path: ':config')
     implementation project(path: ':usecases')
+    implementation project(path: ':entities')
 }

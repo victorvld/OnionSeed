@@ -1,25 +1,28 @@
 package io.essentials.spring.controller;
 
 import io.essentials.adapter.controller.LoginController;
-import io.essentials.adapter.controller.UserController;
+import io.essentials.adapter.controller.SignUpController;
 import io.essentials.adapter.model.WebUser;
 import io.essentials.spring.utils.CookiesUtils;
-import io.essentials.usecases.login.request.LoginRequest;
-import io.essentials.usecases.login.response.LoginResponse;
+import io.essentials.domain.usecases.requester.LoginRequest;
+import io.essentials.domain.usecases.responder.LoginResponse;
+import io.essentials.domain.usecases.requester.SignUpForm;
+
+import io.essentials.domain.usecases.responder.SignUpResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class WebUserController {
     @Autowired
-    private UserController controller;
+    private SignUpController signUpController;
 
     @Autowired
     private LoginController loginController;
@@ -29,11 +32,14 @@ public class WebUserController {
         return "index.html";
     }
 
-    // todo: 1/18/23 This should return an html since we are building a web application and not a rest api.
-    @PostMapping("/users")
+    // TODO: 2/7/23 Find how to send out the proper response.
+    //  This includes error handling like wrong password, etc
+    //  or successful response.
+    @PostMapping(value = "/signUp", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @ResponseBody
-    WebUser createNewAccount(@RequestBody WebUser newUser) {
-        return controller.createUser(newUser);
+    WebUser signUp(SignUpForm form) {
+        SignUpResponse response = (SignUpResponse) signUpController.handle(form);
+        return WebUser.toUserWeb(response.user());
     }
 
     @PostMapping(value = "/home", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
@@ -42,15 +48,12 @@ public class WebUserController {
         LoginResponse lr = (LoginResponse) loginController.handle(form);
         // TODO: 2/6/23 All the logic here will have to be moved to the presenter
         //  as soon as the response model is created.
-        if (lr.success()) {
+        if (lr.success() && lr.sessionToken().isPresent()) {
             var domain = String.format("%s", request.getServerName());
-            CookiesUtils.createCookie("sessionToken", lr.sessionToken(), domain).ifPresent(response::addCookie);
+            CookiesUtils.createCookie("sessionToken", lr.sessionToken().get(), domain).ifPresent(response::addCookie);
             return "home.html";
         } else {
             return "index.html";
         }
     }
-
 }
-
-

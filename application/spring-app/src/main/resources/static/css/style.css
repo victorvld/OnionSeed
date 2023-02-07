@@ -13,7 +13,6 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  /* background-color: #4070f4;*/
   background: linear-gradient(115deg, #56d8e4 10%, #9f01ea 90%);
 }
 
@@ -60,7 +59,7 @@ body {
 }
 
 .container.active .forms {
-  height: 600px;
+  height: 700px;
 }
 
 .container .form .title {
