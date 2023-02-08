@@ -4,11 +4,9 @@ import io.essentials.domain.entities.User;
 import io.essentials.domain.entities.UserSession;
 import io.essentials.domain.usecases.repository.UserRepository;
 
-import java.time.Duration;
-import java.time.LocalDateTime;
-import java.util.Optional;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 public class InMemoryUserRepository implements UserRepository {
     private final Map<String, User> inMemoryDb = new HashMap<>();
@@ -21,9 +19,9 @@ public class InMemoryUserRepository implements UserRepository {
     }
 
     @Override
-    public Optional<User> findByEmail(String email) {
+    public Optional<User> findByUsername(String username) {
         for (User user : inMemoryDb.values()) {
-            if (user.getEmail().equals(email)) {
+            if (user.getEmail().equals(username)) {
                 return Optional.of(user);
             }
         }
@@ -31,9 +29,14 @@ public class InMemoryUserRepository implements UserRepository {
     }
 
     @Override
+    public boolean isUserRegistered(String username) {
+        return findByUsername(username).isPresent();
+    }
+
+    @Override
     public boolean checkPassword(String username, String password) {
         var result = false;
-        var user = findByEmail(username);
+        var user = findByUsername(username);
         if (user.isPresent()) {
             result = user.get().getPassword().equals(password);
         }
@@ -41,20 +44,17 @@ public class InMemoryUserRepository implements UserRepository {
     }
 
     @Override
-    public Optional<String> findSessionTokenByEmail(String email) {
-        if (inMemoryUserSessions.containsKey(email)) {
-            return Optional.of(inMemoryUserSessions.get(email));
+    public Optional<String> findSessionTokenByUsername(String username) {
+        if (inMemoryUserSessions.containsKey(username)) {
+            return Optional.of(inMemoryUserSessions.get(username));
         } else {
             return Optional.empty();
         }
     }
 
     @Override
-    public UserSession createUserSession(String email, String token) {
-        // TODO: 1/26/23 Session expiresAt is a configurable value.
-        //  Implement this functionality in a separate story.
+    public UserSession createUserSession(String email, String token, String expiresAt) {
         inMemoryUserSessions.put(email, token);
-        var fixedSessionDuration = Duration.ofMinutes(30L);
-        return new UserSession(token, LocalDateTime.now().plus(fixedSessionDuration));
+        return new UserSession(token, expiresAt);
     }
 }

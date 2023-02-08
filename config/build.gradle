@@ -7,5 +7,5 @@ dependencies {
     implementation project(path: ':sha256')
     implementation project(path: ':uuid')
     implementation project(path: ':in-memory-database')
-    implementation project(path: ':usescases-implementation')
+    implementation project(path: ':usecases-implementation')
 }

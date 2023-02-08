@@ -4,8 +4,8 @@ import io.essentials.adapter.controller.LoginController;
 import io.essentials.adapter.controller.SignUpController;
 import io.essentials.adapter.model.WebUser;
 import io.essentials.spring.utils.CookiesUtils;
-import io.essentials.domain.usecases.requester.LoginRequest;
-import io.essentials.domain.usecases.responder.LoginResponse;
+import io.essentials.usecases.login.request.LoginRequest;
+import io.essentials.usecases.login.response.LoginResponse;
 import io.essentials.domain.usecases.requester.SignUpForm;
 
 import io.essentials.domain.usecases.responder.SignUpResponse;
@@ -48,9 +48,10 @@ public class WebUserController {
         LoginResponse lr = (LoginResponse) loginController.handle(form);
         // TODO: 2/6/23 All the logic here will have to be moved to the presenter
         //  as soon as the response model is created.
-        if (lr.success() && lr.sessionToken().isPresent()) {
+        if (lr.errors().isEmpty()) {
             var domain = String.format("%s", request.getServerName());
-            CookiesUtils.createCookie("sessionToken", lr.sessionToken().get(), domain).ifPresent(response::addCookie);
+            // TODO: 2/8/23 All this logic will be move to the LoginViewImplementation
+            CookiesUtils.createCookie("sessionToken", lr.result().get("sessionToken"), domain).ifPresent(response::addCookie);
             return "home.html";
         } else {
             return "index.html";

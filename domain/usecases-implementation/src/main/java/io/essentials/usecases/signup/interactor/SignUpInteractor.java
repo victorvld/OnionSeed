@@ -19,7 +19,7 @@ public final class SignUpInteractor implements InputBoundary {
         // The result should be included in the response
         SignUpValidator.validate(form);
         // This should be included in the response
-        if (Context.repository.findByEmail(email).isPresent()) {
+        if (Context.repository.findByUsername(email).isPresent()) {
             throw new UserAlreadyExistsException(email);
         }
         var userToSave = User.builder()

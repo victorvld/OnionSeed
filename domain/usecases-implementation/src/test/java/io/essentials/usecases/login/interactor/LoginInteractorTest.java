@@ -1,9 +1,9 @@
 package io.essentials.usecases.login.interactor;
 
 import io.essentials.config.AppConfig;
-import io.essentials.domain.usecases.requester.LoginRequest;
+import io.essentials.usecases.login.request.LoginRequest;
 import io.essentials.domain.usecases.requester.SignUpForm;
-import io.essentials.domain.usecases.responder.LoginResponse;
+import io.essentials.usecases.login.response.LoginResponse;
 import io.essentials.usecases.signup.interactor.SignUpInteractor;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -38,24 +38,23 @@ public class LoginInteractorTest {
     private static Stream<Arguments> loginFormProvider() {
         return Stream.of(
                 // Incorrect Password
-                Arguments.of(new LoginRequest("u@e.io", "1234"), false, false, "Incorrect Password"),
-                //Unknown User
-                Arguments.of(new LoginRequest("u2@e.io", "1234"), false, false, "Unknown User"),
+                Arguments.of(new LoginRequest("u@e.io", "1234"), "incorrectPasswordOrNonExistingAccount", "Your password is incorrect or this account doesn’t exist."),
+                // Unknown User
+                Arguments.of(new LoginRequest("u2@e.io", "1234"), "incorrectPasswordOrNonExistingAccount", "Your password is incorrect or this account doesn’t exist."),
                 // Already logged
-                Arguments.of(new LoginRequest("alreadyLogged@e.io", "1234"), false, false, "User is already logged")
+                Arguments.of(new LoginRequest("alreadyLogged@e.io", "1234"), "userAlreadyLogged","User is already logged")
         );
     }
 
     @ParameterizedTest
     @MethodSource("loginFormProvider")
-    void loginUser(LoginRequest form, boolean expectSuccessResponse, boolean sessionTokenIsPresent, String reason) {
+    void loginUser(LoginRequest form, String errorType, String reason) {
         var response = (LoginResponse) loginInteractor.execute(form);
 
         Assertions.assertAll(
                 "heading",
-                () -> assertEquals(response.success(), expectSuccessResponse),
-                () -> assertEquals(response.sessionToken().isPresent(), sessionTokenIsPresent),
-                () -> assertEquals(response.reason().get(), reason)
+                () -> assertTrue(response.result().isEmpty()),
+                () -> assertEquals(response.errors().get(errorType), reason)
         );
     }
 
@@ -68,9 +67,8 @@ public class LoginInteractorTest {
 
         Assertions.assertAll(
                 "heading",
-                () -> assertTrue(response.success()),
-                () -> assertTrue(response.sessionToken().isPresent()),
-                () -> assertFalse(response.reason().isPresent())
+                () -> assertFalse(response.result().isEmpty()),
+                () -> assertTrue(response.errors().isEmpty())
         );
     }
 

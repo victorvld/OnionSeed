@@ -10,7 +10,7 @@ include 'in-memory-database'
 include 'in-memory-hazelcast'
 include 'sha256'
 include 'uuid'
-include 'usescases-implementation'
+include 'usecases-implementation'
 
 project(":entities").projectDir = file("domain/entities")
 project(":usecases").projectDir = file("domain/usecases")
@@ -21,5 +21,5 @@ project(":in-memory-database").projectDir = file("adapter/repositories/in-memory
 project(":in-memory-hazelcast").projectDir = file("adapter/repositories/in-memory-hazelcast")
 project(":sha256").projectDir = file("adapter/encoder/sha256")
 project(":uuid").projectDir = file("adapter/id-generator/uuid")
-project(":usescases-implementation").projectDir = file("domain/usescases-implementation")
+project(":usecases-implementation").projectDir = file("domain/usecases-implementation")
 

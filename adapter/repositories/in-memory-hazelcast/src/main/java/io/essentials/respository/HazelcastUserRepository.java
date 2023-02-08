@@ -13,8 +13,13 @@ public class HazelcastUserRepository implements UserRepository {
     }
 
     @Override
-    public Optional<User> findByEmail(String email) {
+    public Optional<User> findByUsername(String username) {
         return Optional.empty();
+    }
+
+    @Override
+    public boolean isUserRegistered(String username) {
+        return false;
     }
 
     @Override
@@ -23,12 +28,12 @@ public class HazelcastUserRepository implements UserRepository {
     }
 
     @Override
-    public Optional<String> findSessionTokenByEmail(String email) {
+    public Optional<String> findSessionTokenByUsername(String username) {
         return Optional.empty();
     }
 
     @Override
-    public UserSession createUserSession(String sessionToken, String token) {
+    public UserSession createUserSession(String sessionToken, String token, String expiresAt) {
         return null;
     }
 }

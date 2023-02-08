@@ -1,4 +1,4 @@
-package io.essentials.domain.usecases.requester;
+package io.essentials.usecases.login.request;
 
 import io.essentials.domain.usecases.requester.Request;
 
