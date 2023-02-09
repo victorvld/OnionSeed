@@ -1,7 +1,7 @@
 package io.essentials.spring.controller;
 
-import io.essentials.adapter.controller.LoginController;
-import io.essentials.adapter.controller.SignUpController;
+import io.essentials.adapter.controller.login.LoginController;
+import io.essentials.adapter.controller.signup.SignUpController;
 import io.essentials.adapter.model.WebUser;
 import io.essentials.spring.utils.CookiesUtils;
 import io.essentials.usecases.login.request.LoginRequest;

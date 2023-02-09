@@ -4,5 +4,5 @@ import io.essentials.domain.usecases.responder.Response;
 
 public interface OutputBoundary {
 
-    String present(Response response);
+    Response present(Response response);
 }

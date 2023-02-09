@@ -12,6 +12,7 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation group: 'org.jsoup', name: 'jsoup', version: '1.7.2'
     implementation project(':controller')
+    implementation project(':presenter')
     implementation project(path: ':config')
     implementation project(path: ':usecases')
     implementation project(path: ':entities')

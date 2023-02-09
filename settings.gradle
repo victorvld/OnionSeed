@@ -11,10 +11,12 @@ include 'in-memory-hazelcast'
 include 'sha256'
 include 'uuid'
 include 'usecases-implementation'
+include 'presenter'
 
 project(":entities").projectDir = file("domain/entities")
 project(":usecases").projectDir = file("domain/usecases")
 project(":controller").projectDir = file("adapter/controller")
+project(":presenter").projectDir = file("adapter/presenter")
 project(":manual-app").projectDir = file("application/manual-app")
 project(":spring-app").projectDir = file("application/spring-app")
 project(":in-memory-database").projectDir = file("adapter/repositories/in-memory-database")

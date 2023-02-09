@@ -2,6 +2,7 @@ package io.essentials.adapter.controller;
 
 
 import io.essentials.adapter.controller.doubles.InputBoundarySpy;
+import io.essentials.adapter.controller.login.LoginController;
 import io.essentials.domain.usecases.requester.Request;
 
 import io.essentials.usecases.login.request.LoginRequest;

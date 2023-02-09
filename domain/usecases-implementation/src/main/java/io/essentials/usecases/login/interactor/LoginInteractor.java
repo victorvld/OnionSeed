@@ -1,7 +1,7 @@
 package io.essentials.usecases.login.interactor;
 
-;
 import io.essentials.domain.usecases.interactor.InputBoundary;
+import io.essentials.domain.usecases.presenter.OutputBoundary;
 import io.essentials.domain.usecases.requester.Request;
 import io.essentials.usecases.login.response.LoginResponse;
 import io.essentials.domain.usecases.responder.Response;
@@ -18,6 +18,12 @@ import static io.essentials.domain.usecases.context.Context.repository;
 import static io.essentials.domain.usecases.context.Context.sessionIdGenerator;
 
 public class LoginInteractor implements InputBoundary {
+    private final OutputBoundary presenter;
+
+    public LoginInteractor(OutputBoundary presenter) {
+        this.presenter = presenter;
+    }
+
     @Override
     public Response execute(Request request) {
         var loginRequest = (LoginRequest) request;
@@ -44,6 +50,6 @@ public class LoginInteractor implements InputBoundary {
         } else {
             errors.put("incorrectPasswordOrNonExistingAccount", "Your password is incorrect or this account doesn’t exist.");
         }
-        return new LoginResponse(result, errors);
+        return presenter.present(new LoginResponse(result, errors));
     }
 }

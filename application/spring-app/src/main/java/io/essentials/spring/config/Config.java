@@ -2,8 +2,9 @@ package io.essentials.spring.config;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import io.essentials.adapter.controller.LoginController;
-import io.essentials.adapter.controller.SignUpController;
+import io.essentials.adapter.controller.login.LoginController;
+import io.essentials.adapter.controller.signup.SignUpController;
+import io.essentials.adapter.presenter.login.LoginPresenter;
 import io.essentials.usecases.signup.interactor.SignUpInteractor;
 import io.essentials.usecases.login.interactor.LoginInteractor;
 import org.springframework.context.annotation.Bean;
@@ -27,7 +28,7 @@ public class Config {
 
     @Bean
     public LoginController loginController() {
-        return new LoginController(new LoginInteractor());
+        return new LoginController(new LoginInteractor(new LoginPresenter()));
     }
 
     @Bean
