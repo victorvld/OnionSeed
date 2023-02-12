@@ -1,7 +1,7 @@
 package io.essentials.adapter.controller;
 
 import io.essentials.adapter.controller.doubles.InputBoundarySpy;
-import io.essentials.domain.usecases.requester.LoginRequest;
+import io.essentials.adapter.controller.signup.SignUpController;
 import io.essentials.domain.usecases.requester.Request;
 import io.essentials.domain.usecases.requester.SignUpForm;
 import org.junit.jupiter.api.Assertions;

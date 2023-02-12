@@ -1,7 +1,11 @@
 package io.essentials.repository;
 
 import io.essentials.domain.entities.User;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -45,7 +49,7 @@ class InMemoryUserRepositoryTest {
 
         inMemoryDb.create(user);
 
-        Assertions.assertTrue(inMemoryDb.findByEmail(email).isPresent());
+        Assertions.assertTrue(inMemoryDb.isUserRegistered(email));
     }
 
 
@@ -53,24 +57,25 @@ class InMemoryUserRepositoryTest {
     void findByEmailNonExistingEmailTest() {
         String email = "exampleNonExisting@email.io";
 
-        Assertions.assertFalse(inMemoryDb.findByEmail(email).isPresent());
+        Assertions.assertFalse(inMemoryDb.isUserRegistered(email));
     }
 
     @Test
     void whenUserIsLoggedThenFindSessionTokenByEmailReturnsPresent() {
         String email = "loggedUser@email.io";
         String token = "session01";
+        String expiresAt = "1234";
 
-        inMemoryDb.createUserSession(email, token);
+        inMemoryDb.createUserSession(email, token, expiresAt);
 
-        Assertions.assertTrue(inMemoryDb.findSessionTokenByEmail(email).isPresent());
+        Assertions.assertTrue(inMemoryDb.findSessionTokenByUsername(email).isPresent());
     }
 
     @Test
     void whenUserIsNotLoggedThenFindSessionTokenByEmailReturnsNotPresent() {
         String email = "NotLoggedUser@email.io";
 
-        Assertions.assertFalse(inMemoryDb.findSessionTokenByEmail(email).isPresent());
+        Assertions.assertFalse(inMemoryDb.findSessionTokenByUsername(email).isPresent());
     }
 
     @Nested

@@ -8,11 +8,13 @@ import java.util.Optional;
 public interface UserRepository {
     User create(User user);
 
-    Optional<User> findByEmail(String email);
+    Optional<User> findByUsername(String username);
+
+    boolean isUserRegistered(String username);
 
     boolean checkPassword(String username, String password);
 
-    Optional<String> findSessionTokenByEmail(String email);
+    Optional<String> findSessionTokenByUsername(String username);
 
-    UserSession createUserSession(String sessionToken, String token);
+    UserSession createUserSession(String sessionToken, String token, String expiresAt);
 }

@@ -2,9 +2,10 @@ package io.essentials.adapter.controller;
 
 
 import io.essentials.adapter.controller.doubles.InputBoundarySpy;
+import io.essentials.adapter.controller.login.LoginController;
 import io.essentials.domain.usecases.requester.Request;
-import io.essentials.domain.usecases.requester.LoginRequest;
 
+import io.essentials.usecases.login.request.LoginRequest;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
