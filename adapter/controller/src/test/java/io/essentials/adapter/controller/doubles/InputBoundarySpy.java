@@ -4,7 +4,7 @@ import io.essentials.domain.usecases.interactor.InputBoundary;
 import io.essentials.domain.usecases.requester.Request;
 import io.essentials.domain.usecases.responder.Response;
 
-public class InputBoundarySpy implements InputBoundary {
+public class InputBoundarySpy implements InputBoundary<Request> {
 
     private boolean executeMethodWasCalled;
     private Request request;

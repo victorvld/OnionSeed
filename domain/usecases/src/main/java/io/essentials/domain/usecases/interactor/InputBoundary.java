@@ -3,7 +3,7 @@ package io.essentials.domain.usecases.interactor;
 import io.essentials.domain.usecases.requester.Request;
 import io.essentials.domain.usecases.responder.Response;
 
-public interface InputBoundary {
+public interface InputBoundary<T extends Request> {
 
-    Response execute(Request request);
+    Response execute(T request);
 }

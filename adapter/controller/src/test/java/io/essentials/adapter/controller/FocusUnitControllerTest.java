@@ -2,6 +2,7 @@ package io.essentials.adapter.controller;
 
 import io.essentials.adapter.controller.doubles.InputBoundarySpy;
 import io.essentials.domain.usecases.requester.Request;
+import io.essentials.usecases.focusUnit.request.FocusUnitRequest;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

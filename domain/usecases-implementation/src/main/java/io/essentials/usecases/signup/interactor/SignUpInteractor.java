@@ -10,14 +10,14 @@ import io.essentials.domain.usecases.requester.SignUpForm;
 import io.essentials.domain.usecases.responder.SignUpResponse;
 import io.essentials.usecases.signup.validator.SignUpValidator;
 
-public final class SignUpInteractor implements InputBoundary {
+public final class SignUpInteractor implements InputBoundary<SignUpForm> {
 
     @Override
-    public Response execute(Request request) {
-        var form = (SignUpForm) request;
-        var email = form.email();
+    public Response execute(SignUpForm request) {
+        //var form = (SignUpForm) request;
+        var email = request.email();
         // The result should be included in the response
-        SignUpValidator.validate(form);
+        SignUpValidator.validate(request);
         // This should be included in the response
         if (Context.repository.findByUsername(email).isPresent()) {
             throw new UserAlreadyExistsException(email);
@@ -25,9 +25,9 @@ public final class SignUpInteractor implements InputBoundary {
         var userToSave = User.builder()
                 .id(Context.idGenerator.generate())
                 .email(email)
-                .password(Context.passwordEncoder.encode(form.password()))
-                .lastName(form.lastName())
-                .firstName(form.firstName())
+                .password(Context.passwordEncoder.encode(request.password()))
+                .lastName(request.lastName())
+                .firstName(request.firstName())
                 .build();
 
         // TODO: 2/7/23 The response must be design within the response model.

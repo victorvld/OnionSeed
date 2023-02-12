@@ -17,7 +17,7 @@ import static io.essentials.domain.usecases.context.Context.passwordEncoder;
 import static io.essentials.domain.usecases.context.Context.repository;
 import static io.essentials.domain.usecases.context.Context.sessionIdGenerator;
 
-public class LoginInteractor implements InputBoundary {
+public class LoginInteractor implements InputBoundary<LoginRequest> {
     private final OutputBoundary presenter;
 
     public LoginInteractor(OutputBoundary presenter) {
@@ -25,10 +25,10 @@ public class LoginInteractor implements InputBoundary {
     }
 
     @Override
-    public Response execute(Request request) {
-        var loginRequest = (LoginRequest) request;
-        var username = loginRequest.username();
-        var password = loginRequest.password();
+    public Response execute(LoginRequest request) {
+        //var loginRequest = (LoginRequest) request;
+        var username = request.username();
+        var password = request.password();
         Map<String, String> result = new HashMap<>();
         Map<String, String> errors = new HashMap<>();
 

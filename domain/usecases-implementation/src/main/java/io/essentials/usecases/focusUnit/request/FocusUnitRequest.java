@@ -1,6 +1,8 @@
-package io.essentials.adapter.controller;
+package io.essentials.usecases.focusUnit.request;
 
 import io.essentials.domain.usecases.requester.Request;
+
+import java.util.UUID;
 
 public record FocusUnitRequest(String startAt,
                                String finishAt,
@@ -12,5 +14,3 @@ public record FocusUnitRequest(String startAt,
 ) implements Request {
 
 }
-
-
