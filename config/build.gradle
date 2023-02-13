@@ -6,6 +6,6 @@ dependencies {
     implementation project(':in-memory-hazelcast')
     implementation project(path: ':sha256')
     implementation project(path: ':uuid')
-    implementation project(path: ':SimpleValidator')
     implementation project(path: ':in-memory-database')
+    implementation project(path: ':usescases-implementation')
 }

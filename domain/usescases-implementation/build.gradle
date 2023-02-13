@@ -1,0 +1,7 @@
+apply plugin: 'java-library'
+
+dependencies {
+    implementation( project(':entities'))
+    implementation project(path: ':usecases')
+    testImplementation( project(':config'))
+}
