@@ -4,7 +4,6 @@ import io.essentials.adapter.controller.UserController;
 import io.essentials.adapter.model.LoginForm;
 import io.essentials.adapter.model.WebUser;
 import io.essentials.spring.utils.CookiesUtils;
-import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,8 +13,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import java.util.Optional;
 
 @Controller
 public class WebUserController {

@@ -1,4 +1,6 @@
 package io.essentials.adapter.model;
 
-public record LoginForm(String username, String password) {
+import io.essentials.domain.usecases.requester.Request;
+
+public record LoginForm(String username, String password) implements Request {
 }
