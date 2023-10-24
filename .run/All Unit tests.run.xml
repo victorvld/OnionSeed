@@ -1,6 +1,6 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="All Unit tests" type="JUnit" factoryName="JUnit" activateToolWindowBeforeRun="false">
-    <extension name="coverage" track_test_folders="true" />
+    <extension name="coverage" sample_coverage="false" track_test_folders="true" />
     <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
     <option name="ALTERNATIVE_JRE_PATH" value="corretto-17" />
     <option name="PACKAGE_NAME" value="" />

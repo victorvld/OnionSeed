@@ -2,7 +2,7 @@ plugins {
     id 'java'
 }
 
-group 'io.essentials.adapter.id-generator'
+group 'io.victorvld.adapter.id-generator'
 version 'unspecified'
 
 repositories {

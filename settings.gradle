@@ -1,4 +1,4 @@
-rootProject.name = 'essentials'
+rootProject.name = 'OnionSeed'
 
 include 'entities'
 include 'usecases'
