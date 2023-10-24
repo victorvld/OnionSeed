@@ -1,11 +1,4 @@
-# OnionSeed
-### (Clean Architecture Template)
-
-## Overview
-
-**OnionSeed** is a comprehensive project template that adheres to the principles exposed in the Clean Architecture book, also known as Onion Architecture. It is meticulously crafted to provide a **blueprint** for building software systems that prioritize independence from specific frameworks or technology stacks. The core philosophy behind OnionSeed is to encapsulate business rules and entities, shielding them from the intricacies of any particular framework.
-
-The primary objective is to foster the creation of a robust, maintainable, and adaptable application architecture. OnionSeed not only sets the stage for this architectural purity but also furnishes a structured foundation that articulates high-level policies and defines clear boundaries between the different layers. This well-defined architecture facilitates the seamless development of new use cases, allowing developers to focus on low-level details within a framework-independent environment.
+# OnionSeed (Clean Architecture Template)
 
 ## Table of Contents
 
@@ -15,7 +8,15 @@ The primary objective is to foster the creation of a robust, maintainable, and a
 - [Contributing](#contributing)
 - [License](#license)
 
+## Overview
+
+**OnionSeed** is a comprehensive project template that adheres to the principles exposed in the Clean Architecture book, also known as Onion Architecture. It is meticulously crafted to provide a **blueprint** for building software systems that prioritize independence from specific frameworks or technology stacks. The core philosophy behind OnionSeed is to encapsulate business rules and entities, shielding them from the intricacies of any particular framework.
+
+The primary objective is to foster the creation of a robust, maintainable, and adaptable application architecture. OnionSeed not only sets the stage for this architectural purity but also furnishes a structured foundation that articulates high-level policies and defines clear boundaries between the different layers. This well-defined architecture facilitates the seamless development of new use cases, allowing developers to focus on low-level details within a framework-independent environment.
+
 At the heart of OnionSeed lies the concept of framework-independent use cases. These use cases encapsulate high-level application behaviors, ensuring that they are not tightly coupled with any particular framework or technology. This decoupling empowers developers to focus on the core business logic without being burdened by framework-specific considerations.
+
+![Onion Architecture](images/architecture.png)
 
 ### Getting Started
 
